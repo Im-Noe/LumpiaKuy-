@@ -2,18 +2,50 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
 <title>LumpiaKuy!</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* ===== MOBILE OVERFLOW FIX — GLOBAL ===== */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Nuclear option: force every element to stay within viewport */
+*, *::before, *::after {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fix: animated elements with translateY can trigger horizontal scroll on some browsers */
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes popIn {
+  from { opacity:0; transform:scale(.65); }
+  to   { opacity:1; transform:scale(1); }
+}
+
+
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   background: #fef3e2;
   color: #3d1a00;
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 /* ===== HEADER ===== */
@@ -24,18 +56,19 @@ header {
   z-index: 100;
   border-radius: 0 0 26px 26px;
   overflow: hidden;
+  width: 100%;
 }
 .header-inner {
   max-width: 960px;
   margin: 0 auto;
-  padding: 14px 20px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 .header-logo {
   flex-shrink: 0;
-  width: 56px; height: 56px;
+  width: 52px; height: 52px;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,.3));
   animation: popIn .7s cubic-bezier(.34,1.56,.64,1) both;
@@ -43,18 +76,21 @@ header {
 .header-text { flex: 1; min-width: 0; }
 .header-text h1 {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(20px, 5vw, 27px);
+  font-size: clamp(18px, 5vw, 27px);
   color: #fff;
   line-height: 1;
   text-shadow: 0 1px 6px rgba(0,0,0,.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .header-text h1 span { color: #FFD980; }
 .header-tagline {
-  font-size: clamp(10px, 2.5vw, 11.5px);
+  font-size: clamp(9px, 2.2vw, 11.5px);
   color: rgba(255,255,255,.82);
   font-weight: 700;
-  letter-spacing: .8px;
-  margin-top: 3px;
+  letter-spacing: .6px;
+  margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,15 +99,20 @@ header {
 /* ===== PAGE WRAP ===== */
 .page-wrap {
   max-width: 960px;
-  margin: 20px auto 0;
-  padding: 0 16px 48px;
+  margin: 18px auto 0;
+  padding: 0 14px 40px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* ===== MAIN GRID ===== */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
 }
 @media (min-width: 640px) {
   .main-grid {
@@ -84,31 +125,35 @@ header {
 /* ===== CARD ===== */
 .card {
   background: #fff;
-  border-radius: 22px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1.5px solid #f0c898;
-  box-shadow: 0 6px 20px rgba(140,70,10,.13);
+  box-shadow: 0 4px 16px rgba(140,70,10,.12);
   animation: slideUp .55s ease both;
+  width: 100%;
+  min-width: 0;
 }
 
 /* ===== ORDER HEADER ===== */
 .order-header {
   background: linear-gradient(135deg, #8B4500, #C2621A);
-  padding: 18px 20px 15px;
+  padding: 16px 18px 14px;
   position: relative;
   overflow: hidden;
 }
 .order-header::after {
   content: '🔥';
-  position: absolute; right: 14px; top: 50%;
+  position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%);
-  font-size: 44px; opacity: .2;
+  font-size: 40px; opacity: .2;
+  pointer-events: none;
 }
 .order-header h2 {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(16px, 4vw, 19px);
+  font-size: clamp(15px, 4vw, 19px);
   color: #FFE0A0;
   line-height: 1.2;
+  padding-right: 40px;
 }
 .new-badge {
   display: inline-block;
@@ -120,10 +165,10 @@ header {
   margin-top: 7px;
 }
 .product-highlight {
-  margin: 14px 16px 0;
+  margin: 14px 14px 0;
   background: linear-gradient(135deg, #fff8ee, #fdebd0);
-  border-radius: 14px;
-  padding: 13px 15px;
+  border-radius: 12px;
+  padding: 12px 14px;
   border-left: 4px solid #F5A623;
 }
 .product-highlight h3 {
@@ -136,26 +181,32 @@ header {
   color: #8a4a18;
   margin-top: 4px;
   line-height: 1.55;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .info-grid {
-  padding: 14px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 .info-row {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  font-size: 13.5px;
+  gap: 9px;
+  font-size: 13px;
   color: #4a2200;
+  min-width: 0;
+  overflow: hidden;
 }
-.info-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.info-row > div { min-width: 0; overflow: hidden; word-wrap: break-word; overflow-wrap: break-word; }
+.info-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .info-label {
   font-weight: 800;
   color: #C2621A;
-  font-size: 12.5px;
-  min-width: 82px;
+  font-size: 12px;
+  min-width: 78px;
+  flex-shrink: 0;
 }
 .price-tag {
   font-family: 'Fredoka One', cursive;
@@ -165,34 +216,35 @@ header {
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, #f0c070, transparent);
-  margin: 0 16px;
+  margin: 0 14px;
 }
 
 /* ===== CONTACTS CARD HEADER ===== */
 .contact-header {
   background: linear-gradient(135deg, #1e6b38, #2e9e55);
-  padding: 18px 20px 15px;
+  padding: 16px 18px 14px;
   position: relative;
   overflow: hidden;
 }
 .contact-header::after {
   content: '📲';
-  position: absolute; right: 14px; top: 50%;
+  position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%);
-  font-size: 38px; opacity: .2;
+  font-size: 36px; opacity: .2;
+  pointer-events: none;
 }
 .contact-header h2 {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(16px, 4vw, 19px);
+  font-size: clamp(15px, 4vw, 19px);
   color: #d4f5e0;
 }
 .contact-header .new-badge {
   background: #4ade80;
   color: #0f3d1f;
 }
-.contact-section { padding: 14px 16px 18px; }
+.contact-section { padding: 12px 14px 16px; }
 .contact-label {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 800;
   color: #1e6b38;
   margin-bottom: 10px;
@@ -204,11 +256,13 @@ header {
   background: linear-gradient(135deg, #25a244, #1a7d33);
   color: white;
   text-decoration: none;
-  padding: 13px 16px;
-  border-radius: 14px;
-  margin-bottom: 9px;
-  box-shadow: 0 3px 12px rgba(30,140,60,.2);
+  padding: 12px 14px;
+  border-radius: 13px;
+  margin-bottom: 8px;
+  box-shadow: 0 3px 10px rgba(30,140,60,.2);
   transition: transform .15s, box-shadow .15s;
+  min-width: 0;
+  overflow: hidden;
 }
 .wa-btn:active { transform: scale(.97); }
 .wa-icon {
@@ -219,16 +273,21 @@ header {
   flex-shrink: 0;
 }
 .wa-icon svg { width: 17px; height: 17px; }
-.wa-name { font-size: 15px; font-weight: 800; }
-.wa-subtitle { font-size: 11px; opacity: .85; font-weight: 600; }
+.wa-name { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wa-subtitle { font-size: 11px; opacity: .85; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ===== GALLERY ===== */
-.gallery-section { animation-delay: .2s; }
+.gallery-section {
+  animation-delay: .2s;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
 .gallery-title {
   font-family: 'Fredoka One', cursive;
-  font-size: 18px;
+  font-size: 17px;
   color: #5a2800;
-  margin-bottom: 12px;
+  margin-bottom: 11px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -240,11 +299,14 @@ header {
   background: linear-gradient(90deg, #F5A623, transparent);
   border-radius: 2px;
 }
+/* Desktop: 3 kolom grid */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
+  width: 100%;
 }
+/* Mobile: horizontal scroll */
 @media (max-width: 480px) {
   .gallery-grid {
     display: flex;
@@ -253,21 +315,29 @@ header {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
+    /* Penting: biar tidak bikin halaman melebar */
+    width: 100%;
+    max-width: 100%;
   }
   .gallery-grid::-webkit-scrollbar { display: none; }
-  .gallery-card { flex: 0 0 72vw !important; max-width: 280px; }
+  .gallery-card {
+    flex: 0 0 75vw !important;
+    max-width: 75vw;
+    min-width: 0;
+  }
 }
 .gallery-card {
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
   box-shadow: 0 4px 14px rgba(100,50,0,.15);
   scroll-snap-align: start;
+  min-width: 0;
 }
 .gallery-card img {
   width: 100%;
-  height: 200px;
+  height: 190px;
   object-fit: cover;
   display: block;
   transition: transform .35s ease;
@@ -279,11 +349,12 @@ header {
   background: rgba(255,248,230,.93);
   color: #6a3000;
   font-family: 'Fredoka One', cursive;
-  font-size: 11.5px;
+  font-size: 11px;
   padding: 4px 10px;
   border-radius: 999px;
   box-shadow: 0 2px 8px rgba(0,0,0,.15);
   backdrop-filter: blur(4px);
+  white-space: nowrap;
 }
 .scroll-hint {
   text-align: center;
@@ -298,34 +369,36 @@ header {
 /* ===== CTA ===== */
 .cta-banner {
   background: linear-gradient(135deg, #F5A623, #C2621A);
-  border-radius: 18px;
-  padding: 16px 20px;
+  border-radius: 16px;
+  padding: 14px 18px;
   text-align: center;
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(14px, 3.5vw, 16px);
+  font-size: clamp(13px, 3.5vw, 16px);
   color: #fff;
   text-shadow: 0 1px 4px rgba(0,0,0,.2);
-  box-shadow: 0 6px 20px rgba(194,98,26,.3);
+  box-shadow: 0 5px 18px rgba(194,98,26,.3);
   animation-delay: .3s;
+  width: 100%;
+  min-width: 0;
 }
 
 /* ===== FOOTER ===== */
 .footer {
   text-align: center;
-  margin-top: 28px;
-  font-size: 12px;
+  margin-top: 24px;
+  font-size: 11.5px;
   color: #b07840;
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: .4px;
 }
 
 @keyframes popIn {
   from { opacity:0; transform:scale(.65); }
-  to { opacity:1; transform:scale(1); }
+  to   { opacity:1; transform:scale(1); }
 }
 @keyframes slideUp {
-  from { opacity:0; transform:translateY(24px); }
-  to { opacity:1; transform:translateY(0); }
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
@@ -351,7 +424,7 @@ header {
       </div>
       <div class="product-highlight">
         <h3>✨ Lumpia Isi Ayam Kemangi ✨</h3>
-        <p>Perpaduan ayam gurih + aroma kemangi yang khas, dibalut dengan kulit lumpia renyah 🤤</p>
+        <p>Perpaduan ayam gurih + aroma kemangi yang khas, dibalut kulit lumpia renyah 🤤</p>
       </div>
       <div class="info-grid">
         <div class="info-row">
@@ -419,7 +492,7 @@ header {
     </div>
 
   </div>
-  <div class="footer">© 2026 LumpiaKuy! · Yummy, high protein, affordable</div>
+  <div class="footer">© 2025 LumpiaKuy! · Yummy, high protein, affordable</div>
 </div>
 
 </body>
