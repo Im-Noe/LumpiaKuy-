@@ -1,2 +1,0 @@
-# LumpiaKuy-
-Website Pemesanan LumpiaKuy
